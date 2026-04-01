@@ -1,0 +1,7 @@
+{
+  "name": "BiomechSync 3D",
+  "description": "Biomechanical Synchronization System for fusing characters with gym equipment for precise 3D simulation.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
