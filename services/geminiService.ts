@@ -16,37 +16,16 @@ export const runBiomechSyncV3 = async (
   
   const prompt = `ACTÚA COMO UN INGENIERO DE PROMPTS DE VIDEO Y EXPERTO EN BIOMECÁNICA.
   
-  TU MISIÓN: Analizar la imagen de referencia donde una persona realiza el ejercicio "${exercise}" en una máquina. Debes extraer la mecánica de la máquina, los puntos de contacto y la pose para crear un análisis biomecánico completo y un PROMPT DE VIDEO EN INGLÉS altamente descriptivo.
-
-  BASE DE CONOCIMIENTO BIOMECÁNICO (JSON DE REFERENCIA ESTRICTA):
-  {
-    "Sentadilla Hack / Hack Squat": {
-      "estatico": "Bottom metal footplate, main frame, 45-degree rails. They NEVER move or bend.",
-      "dinamico": "Padded sled, shoulder pads, backrest. They slide linearly up and down the rails.",
-      "anclajes": "Feet GLUED to bottom footplate. Back and shoulders GLUED to the moving sled. Hands GLUED to sled handles.",
-      "accion": "Bends knees to lower the sled, pushes through feet to extend legs and drive sled up."
-    },
-    "Prensa de Piernas / Leg Press": {
-      "estatico": "Seat, backrest, main frame. They NEVER move.",
-      "dinamico": "Top metal footplate and weight carriage. They slide diagonally.",
-      "anclajes": "Back and glutes GLUED to the stationary seat. Feet GLUED to the moving footplate.",
-      "accion": "Bends knees to lower the footplate towards chest, pushes through feet to extend legs and drive footplate away."
-    },
-    "Jalón al Pecho / Lat Pulldown": {
-      "estatico": "Seat, knee pads, main frame, weight stack frame. They NEVER move.",
-      "dinamico": "Top cable and wide grip bar. They move up and down.",
-      "anclajes": "Glutes GLUED to seat. Knees GLUED under knee pads. Hands GLUED to the wide bar.",
-      "accion": "Pulls the bar down to the upper chest by driving elbows down, then slowly releases the bar back up."
-    }
-  }
+  TU MISIÓN: Analizar la imagen de referencia donde una persona realiza el ejercicio "${exercise}" en una máquina. Debes extraer la mecánica de la máquina, los puntos de contacto y la pose para crear un análisis biomecánico completo y, lo más importante, un PROMPT DE VIDEO EN INGLÉS altamente descriptivo y UNIVERSAL.
 
   REGLAS UNIVERSALES PARA EL PROMPT DE VIDEO (video_prompt_en):
   1. IDIOMA Y CÁMARA: DEBE ESTAR EN INGLÉS. Empieza siempre con "STATIC CAMERA. The camera does not move."
-  2. CONSULTA EL JSON: Si el ejercicio coincide con uno de la BASE DE CONOCIMIENTO, usa EXACTAMENTE esas reglas de qué se mueve y qué no. Si no está, dedúcelo lógicamente.
-  3. ENTORNO ESTÁTICO: Especifica que las partes estáticas están "bolted to the floor", son de metal sólido/rígido, y NO se doblan ni deforman.
-  4. ANCLAJES: Especifica que las partes del cuerpo están "locked and glued" a sus soportes y NO resbalan.
-  5. ACCIÓN: Describe la acción paso a paso de forma visual.
-  6. FORMATO BASE: Cinematic, photorealistic 3D animation of a silver muscular mannequin...
+  2. ENTORNO ESTÁTICO (Lo que NO se mueve): Identifica y describe qué partes exactas de la máquina son inamovibles (ej. marco principal, asiento, base). Especifica que están "bolted to the floor", son de metal sólido/rígido, y que NO se doblan, deforman ni cambian de forma.
+  3. ANCLAJES DEL CUERPO (Puntos fijos): Identifica qué partes del cuerpo están fijas y a qué están pegadas según la imagen (ej. "espalda pegada al respaldo", "pies anclados al suelo", "pecho apoyado en el cojín", "glúteos en el asiento"). Especifica que estas partes están "locked and glued" a sus soportes y NO resbalan ni se separan en todo el video.
+  4. MÁQUINA DINÁMICA (Lo que SÍ se mueve): Describe qué partes de la máquina se mueven (cables, palancas, trineos, poleas) y su trayectoria exacta (lineal, arco, rotación).
+  5. ACCIÓN BIOMECÁNICA (El movimiento): Describe la acción paso a paso de forma visual. Qué articulaciones se doblan, qué extremidades empujan/jalan, y cómo mueven la parte dinámica de la máquina.
+  6. ORIENTACIÓN: Describe explícitamente hacia dónde mira el personaje con respecto a la máquina.
+  7. FORMATO BASE: Cinematic, photorealistic 3D animation of a silver muscular mannequin...
 
   INPUTS:
   - Sujeto Objetivo: ${charInput.text || 'Basado en imagen'}
